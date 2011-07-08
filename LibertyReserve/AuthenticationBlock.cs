@@ -1,11 +1,16 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Magnis.Web.Services.LibertyReserve
 {
 	public class AuthenticationBlock
 	{
+		protected const string AuthNodeName = "Auth";
+		protected const string ApiNameNodeName = "ApiName";
+		protected const string TokenNodeName = "Token";
+		
 		public string ApiName { get; set; }
 		public string Token { get; set; }
 		
@@ -41,6 +46,15 @@ namespace Magnis.Web.Services.LibertyReserve
 				
 				return token;
 			}
+		}
+		
+		public XElement ToXML()
+		{
+			return 	
+				new XElement(AuthNodeName, 
+					new XElement(ApiNameNodeName, ApiName),
+					new XElement(TokenNodeName, Token)
+				);
 		}
 	}
 }
