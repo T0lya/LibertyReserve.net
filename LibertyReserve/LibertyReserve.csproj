@@ -37,6 +37,9 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ApiCredentials.cs" />
     <Compile Include="Currency.cs" />
+    <Compile Include="Operations.cs" />
+    <Compile Include="Requests.cs" />
+    <Compile Include="AuthenticationBlock.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
