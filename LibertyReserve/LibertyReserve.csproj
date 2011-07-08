@@ -34,6 +34,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -42,6 +43,7 @@
     <Compile Include="Operations.cs" />
     <Compile Include="Requests.cs" />
     <Compile Include="AuthenticationBlock.cs" />
+    <Compile Include="Responses.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
