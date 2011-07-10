@@ -38,11 +38,11 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		protected static string CreateSecurityToken(string securityWord)
 		{
-			string data = String.Format("{0}:{1:yyyyMMdd:HH}", securityWord, DateTime.Now);
+			string data = String.Format("{0}:{1:yyyyMMdd:HH}", securityWord, DateTime.UtcNow);
 			using (var sha = new SHA256Managed())
 			{
 				byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes(data));
-				string token = BitConverter.ToString(hash).Replace('-', ' ');
+				string token = BitConverter.ToString(hash).Replace("-", String.Empty);
 				
 				return token;
 			}

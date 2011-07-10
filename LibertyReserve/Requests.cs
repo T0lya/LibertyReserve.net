@@ -80,7 +80,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		public override XElement ToXML()
 		{
 			return
-				new XElement(RequestNodeName,
+				new XElement(RequestNodeName, new XAttribute(RequestIdAttributeName, Id),
 					Auth.ToXML(),
 					Operations.Select(op => op.ToXML()));
 		}
