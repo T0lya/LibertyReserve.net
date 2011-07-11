@@ -45,6 +45,7 @@
     <Compile Include="AuthenticationBlock.cs" />
     <Compile Include="Responses.cs" />
     <Compile Include="LRConverter.cs" />
+    <Compile Include="LibertyReserveException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
