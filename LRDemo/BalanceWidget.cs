@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Magnis.Web.Services.LibertyReserve;
-using System.Collections.Generic;
 
 namespace LRDemo
 {
@@ -11,7 +11,7 @@ namespace LRDemo
 		#region Declarations
 		
 		[Gtk.TreeNode(ListOnly = true)]
-		class BalanceOperationTreeNode : Gtk.TreeNode
+		class BalanceTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
 			public string AccountNumber { get; set; }
@@ -20,13 +20,17 @@ namespace LRDemo
 			
 			[Gtk.TreeNodeValue(Column = 1)]
 			public string CurrencyName { get; set; }
+			
+			[Gtk.TreeNodeValue(Column = 2)]
+			public double Value { get; set; }
 		}
 		
 		#endregion
 		
 		public IApiCredentialsProvider ApiCredentialsProvider { get; set; }
 		
-		private Gtk.NodeStore operationStore = new Gtk.NodeStore(typeof(BalanceOperationTreeNode));
+		private Gtk.NodeStore operationStore = new Gtk.NodeStore(typeof(BalanceTreeNode));
+		private Gtk.NodeStore balanceStore = new Gtk.NodeStore(typeof(BalanceTreeNode));
 		
 		public BalanceWidget()
 		{
@@ -34,6 +38,7 @@ namespace LRDemo
 			
 			UIHelper.FillCurrencyComboBox(cmbCurrency);
 			InitOperationsNodeView();
+			InitBalanceNodeView();
 			UpdateUI();
 		}
 		
@@ -42,10 +47,19 @@ namespace LRDemo
 		private void InitOperationsNodeView()
 		{
 			operationsNodeView.NodeStore = operationStore;
-			operationsNodeView.AppendColumn("Account Name", new Gtk.CellRendererText(), "text", 0);
+			operationsNodeView.AppendColumn("Account ID", new Gtk.CellRendererText(), "text", 0);
 			operationsNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 1);
 			operationsNodeView.ShowAll();
 			operationsNodeView.NodeSelection.Changed += (sender, args) => UpdateUI();
+		}
+		
+		private void InitBalanceNodeView()
+		{
+			balanceNodeView.NodeStore = balanceStore;
+			balanceNodeView.AppendColumn("Account ID", new Gtk.CellRendererText(), "text", 0);
+			balanceNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 1);
+			balanceNodeView.AppendColumn("Value", new Gtk.CellRendererText(), "text", 2);
+			balanceNodeView.ShowAll();
 		}
 
 		#endregion
@@ -56,6 +70,28 @@ namespace LRDemo
 		{
 			btnRemoveOperation.Sensitive = operationsNodeView.NodeSelection.SelectedNode != null;
 			btnSendRequest.Sensitive = operationStore.GetNode(Gtk.TreePath.NewFirst()) != null;
+		}
+		
+		private void ShowBalances(BalanceResponse response)
+		{
+			txtRawResponse.Buffer.Text = response.ResponseText;
+			foreach (Balance b in response.Balances)
+			{
+				var node = new BalanceTreeNode
+				{
+					AccountNumber = b.AccountId,
+					Currency = b.Currency,
+					CurrencyName = b.Currency.ToString(),
+					Value = b.Value,
+				};
+				balanceStore.AddNode(node);
+			}
+		}
+		
+		private void ClearResponseData()
+		{
+			balanceStore.Clear();
+			txtRawResponse.Buffer.Clear();
 		}
 		
 		#endregion
@@ -70,7 +106,7 @@ namespace LRDemo
 				cmbCurrency.GetActiveIter(out currencyIter);
 				Currency currency = (Currency)cmbCurrency.Model.GetValue(currencyIter, 1);
 				
-				var node = new BalanceOperationTreeNode
+				var node = new BalanceTreeNode
 				{
 					AccountNumber = txtAccountNumber.Text.Trim(),
 					Currency = currency,
@@ -90,15 +126,17 @@ namespace LRDemo
 		
 		private void SendRequest()
 		{
+			ClearResponseData();
 			BalanceRequest request = PrepareRequest();
 			request.Auth = AuthenticationBlock.FromApiCredentials(ApiCredentialsProvider.Credentials);
 			BalanceResponse response = request.GetResponse();
+			ShowBalances(response);
 		}
 		
 		private BalanceRequest PrepareRequest()
 		{
 			var operations = new List<BalanceOperation>();
-			foreach (BalanceOperationTreeNode node in operationStore) 
+			foreach (BalanceTreeNode node in operationStore) 
 			{
 				var op = new BalanceOperation
 				{

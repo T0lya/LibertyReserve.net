@@ -16,7 +16,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(OperationNodeName,
-					new XElement(CurrencyIdNodeName, CurrencyConverter.ToString(Currency)),
+					new XElement(CurrencyIdNodeName, LRConverter.ToString(Currency)),
 					new XElement(AccountIdNodeName, AccountId)
 				);
 		}
