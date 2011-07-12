@@ -5,17 +5,52 @@ using System.Globalization;
 
 namespace Magnis.Web.Services.LibertyReserve
 {
+	public class ApiError
+	{
+		protected const string CodeNodeName = "Code";
+		protected const string TextNodeName = "Text";
+		protected const string DescriptionNodeName = "Description";
+		
+		public int Code { get; set; }
+		public string Text { get; set; }
+		public string Description { get; set; }
+		
+		public static ApiError Parse(XElement xml)
+		{
+			var error = new ApiError
+			{
+				Code = Int32.Parse(xml.Element(CodeNodeName).Value),
+				Text = xml.Element(TextNodeName).Value.Trim(),
+				Description = xml.Element(DescriptionNodeName).Value.Trim(),
+			};
+			
+			return error;
+		}
+	}
+	
+	
 	public abstract class Response
 	{
 		protected const string RequestIdAttributeName = "id";
 		protected const string ResponseDateAttributeName = "date";
+		protected const string ErrorNodeName = "Error";
 		
 		public string ResponseText { get; set; }
 		public string RequestId { get; set; }
 		public DateTime Timestamp { get; set; }
+		public List<ApiError> Errors { get; protected set; }
+		
+		protected void ParseErrors(XElement xml)
+		{
+			Errors = new List<ApiError>();
+			foreach (XElement node in xml.Elements(ErrorNodeName))
+			{
+				Errors.Add(ApiError.Parse(node));
+			}
+		}
 	}
 	
-	
+		
 	public class Balance
 	{
 		public string AccountId { get; set; }
@@ -36,29 +71,37 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public List<Balance> Balances { get; protected set; }
 		
-		public static BalanceResponse Parse(string responseData)
+		public static BalanceResponse Parse(string responseText)
 		{
-			XElement xml = XElement.Parse(responseData);
-			var response = new BalanceResponse
+			try
 			{
-				ResponseText = xml.ToString(),
-				RequestId = xml.Attribute(RequestIdAttributeName).Value,
-				Timestamp = LRConverter.ToDateTime(xml.Attribute(ResponseDateAttributeName).Value),
-				Balances = new List<Balance>(),
-			};
-			foreach (XElement node in xml.Elements(BalanceNodeName))
-			{
-				var b = new Balance
+				XElement xml = XElement.Parse(responseText);
+				var response = new BalanceResponse
 				{
-					AccountId = node.Element(AccountIdNodeName).Value.Trim(),
-					Currency = LRConverter.FromString(node.Element(CurrencyIdNodeName).Value.Trim()),
-					Value = Double.Parse(node.Element(ValueNodeName).Value, CultureInfo.InvariantCulture),
-					Timestamp = LRConverter.ToDateTime(node.Element(DateNodeName).Value.Trim()),
+					ResponseText = xml.ToString(),
+					RequestId = xml.Attribute(RequestIdAttributeName).Value,
+					Timestamp = LRConverter.ToDateTime(xml.Attribute(ResponseDateAttributeName).Value),
+					Balances = new List<Balance>(),
 				};
-				response.Balances.Add(b);
+				foreach (XElement node in xml.Elements(BalanceNodeName))
+				{
+					var b = new Balance
+					{
+						AccountId = node.Element(AccountIdNodeName).Value.Trim(),
+						Currency = LRConverter.FromString(node.Element(CurrencyIdNodeName).Value.Trim()),
+						Value = Double.Parse(node.Element(ValueNodeName).Value, CultureInfo.InvariantCulture),
+						Timestamp = LRConverter.ToDateTime(node.Element(DateNodeName).Value.Trim()),
+					};
+					response.Balances.Add(b);
+				}
+				response.ParseErrors(xml);
+				
+				return response;
 			}
-			
-			return response;
+			catch (Exception e)
+			{
+				throw new LibertyReserveException("Balance response format is invalid.", responseText, e);
+			}
 		}
 	}
 }

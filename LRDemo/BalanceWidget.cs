@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Magnis.Web.Services.LibertyReserve;
+using System.Text;
 
 namespace LRDemo
 {
@@ -88,6 +89,21 @@ namespace LRDemo
 			}
 		}
 		
+		private void ShowErrors(BalanceResponse response)
+		{
+			if (response.Errors.Count > 0)
+			{
+				var sb = new StringBuilder("The server returned the following errors:");
+				sb.AppendLine();
+				foreach (ApiError error in response.Errors)
+				{
+					sb.AppendFormat("{0}: {1}", error.Code, error.Text);
+					sb.AppendLine();
+				}
+				UIHelper.DisplayError((Gtk.Window)Toplevel, sb.ToString());
+			}
+		}
+		
 		private void ClearResponseData()
 		{
 			balanceStore.Clear();
@@ -127,10 +143,25 @@ namespace LRDemo
 		private void SendRequest()
 		{
 			ClearResponseData();
+			
 			BalanceRequest request = PrepareRequest();
 			request.Auth = AuthenticationBlock.FromApiCredentials(ApiCredentialsProvider.Credentials);
-			BalanceResponse response = request.GetResponse();
-			ShowBalances(response);
+			try
+			{
+				BalanceResponse response = request.GetResponse();
+				ShowBalances(response);
+				ShowErrors(response);
+			}
+			catch (LibertyReserveException e)
+			{
+				string message = "Process response failed: " + e.Message;
+				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+			}
+			catch (Exception e)
+			{
+				string message = "Send request failed: " + e.Message;
+				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+			}
 		}
 		
 		private BalanceRequest PrepareRequest()
