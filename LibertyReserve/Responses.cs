@@ -104,5 +104,19 @@ namespace Magnis.Web.Services.LibertyReserve
 			}
 		}
 	}
+	
+	
+	public class AccountName
+	{
+		public string AccountToRetrieve { get; set; }
+		public string Name { get; set; }
+		public DateTime Date { get; set; }
+	}
+	
+	
+	public class AccountNameResponse : Response
+	{
+		public List<AccountName> AccountNames { get; set; }
+	}
 }
 

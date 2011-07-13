@@ -102,6 +102,11 @@ namespace Magnis.Web.Services.LibertyReserve
 					Operations.Select(op => op.ToXML())
 				);
 		}
+		
+		public AccountNameResponse GetResponse()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
 

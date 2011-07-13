@@ -55,6 +55,8 @@
     <Compile Include="gtk-gui\LRDemo.BalanceWidget.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="IApiCredentialsProvider.cs" />
+    <Compile Include="gtk-gui\LRDemo.AccountWidget.cs" />
+    <Compile Include="AccountWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

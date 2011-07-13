@@ -16,7 +16,9 @@ public partial class MainWindow
 	private global::Gtk.Label lblApiCredentials;
 	private global::Gtk.Notebook operationsNotebook;
 	private global::LRDemo.BalanceWidget balanceWidget;
-	private global::Gtk.Label lblBalance;
+	private global::Gtk.Label lblBalanceTab;
+	private global::LRDemo.AccountWidget accountWidget;
+	private global::Gtk.Label lblAccountNameTab;
     
 	protected virtual void Build ()
 	{
@@ -137,20 +139,35 @@ public partial class MainWindow
 		this.balanceWidget.Name = "balanceWidget";
 		this.operationsNotebook.Add (this.balanceWidget);
 		// Notebook tab
-		this.lblBalance = new global::Gtk.Label ();
-		this.lblBalance.Name = "lblBalance";
-		this.lblBalance.LabelProp = global::Mono.Unix.Catalog.GetString ("Balance");
-		this.operationsNotebook.SetTabLabel (this.balanceWidget, this.lblBalance);
-		this.lblBalance.ShowAll ();
-		this.layoutVBox.Add (this.operationsNotebook);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
+		this.lblBalanceTab = new global::Gtk.Label ();
+		this.lblBalanceTab.Name = "lblBalanceTab";
+		this.lblBalanceTab.LabelProp = global::Mono.Unix.Catalog.GetString ("Balance");
+		this.operationsNotebook.SetTabLabel (this.balanceWidget, this.lblBalanceTab);
+		this.lblBalanceTab.ShowAll ();
+		// Container child operationsNotebook.Gtk.Notebook+NotebookChild
+		this.accountWidget = new global::LRDemo.AccountWidget ();
+		this.accountWidget.Events = ((global::Gdk.EventMask)(256));
+		this.accountWidget.Name = "accountWidget";
+		this.operationsNotebook.Add (this.accountWidget);
+		global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.operationsNotebook [this.accountWidget]));
 		w11.Position = 1;
+		// Notebook tab
+		this.lblAccountNameTab = new global::Gtk.Label ();
+		this.lblAccountNameTab.Name = "lblAccountNameTab";
+		this.lblAccountNameTab.LabelProp = global::Mono.Unix.Catalog.GetString ("Account Name");
+		this.operationsNotebook.SetTabLabel (this.accountWidget, this.lblAccountNameTab);
+		this.lblAccountNameTab.ShowAll ();
+		this.layoutVBox.Add (this.operationsNotebook);
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
+		w12.Position = 1;
+		w12.Expand = false;
+		w12.Fill = false;
 		this.Add (this.layoutVBox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 602;
-		this.DefaultHeight = 300;
+		this.DefaultHeight = 364;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}

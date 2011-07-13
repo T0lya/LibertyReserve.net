@@ -3,6 +3,7 @@ using Gtk;
 using Magnis.Web.Services.LibertyReserve;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 namespace LRDemo
 {
@@ -38,6 +39,21 @@ namespace LRDemo
 			{
 				dlg.Run();
 				dlg.Destroy();
+			}
+		}
+		
+		public static void DisplayResponseErrors(Window parent, Response response)
+		{
+			if (response.Errors.Count > 0)
+			{
+				var sb = new StringBuilder("The server returned the following errors:");
+				sb.AppendLine();
+				foreach (ApiError error in response.Errors)
+				{
+					sb.AppendFormat("{0}: {1}", error.Code, error.Text);
+					sb.AppendLine();
+				}
+				UIHelper.DisplayError(parent, sb.ToString());
 			}
 		}
 		
