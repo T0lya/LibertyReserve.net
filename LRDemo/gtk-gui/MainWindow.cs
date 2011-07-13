@@ -160,8 +160,6 @@ public partial class MainWindow
 		this.layoutVBox.Add (this.operationsNotebook);
 		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
 		w12.Position = 1;
-		w12.Expand = false;
-		w12.Fill = false;
 		this.Add (this.layoutVBox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

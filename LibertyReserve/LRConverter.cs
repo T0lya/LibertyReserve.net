@@ -7,7 +7,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	{
 		public static DateTime ToDateTime(string value)
 		{
-			return DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+			return DateTime.ParseExact(value, "yyyy-dd-MM HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 		
 		public static string ToString(Currency currency)

@@ -10,6 +10,7 @@ public partial class MainWindow: Gtk.Window, IApiCredentialsProvider
 		Build();
 		
 		balanceWidget.ApiCredentialsProvider = this;
+		accountWidget.ApiCredentialsProvider = this;
 	}
 	
 	#region IApiCredentialsProvider Members

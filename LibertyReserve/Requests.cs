@@ -105,7 +105,9 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public AccountNameResponse GetResponse()
 		{
-			throw new NotImplementedException();
+			string response = Send(new Uri(RequestUrl));
+			
+			return AccountNameResponse.Parse(response);
 		}
 	}
 }

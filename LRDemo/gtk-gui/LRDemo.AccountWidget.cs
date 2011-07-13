@@ -24,7 +24,7 @@ namespace LRDemo
 		private global::Gtk.NodeView operationsNodeView;
 		private global::Gtk.Label lblRequestOperations;
 		private global::Gtk.Table tblResponse;
-		private global::Gtk.Frame balanceFrame;
+		private global::Gtk.Frame accountsFrame;
 		private global::Gtk.Alignment GtkAlignment3;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
 		private global::Gtk.NodeView accountsNodeView;
@@ -208,10 +208,10 @@ namespace LRDemo
 			this.tblResponse.RowSpacing = ((uint)(6));
 			this.tblResponse.ColumnSpacing = ((uint)(6));
 			// Container child tblResponse.Gtk.Table+TableChild
-			this.balanceFrame = new global::Gtk.Frame ();
-			this.balanceFrame.Name = "balanceFrame";
-			this.balanceFrame.ShadowType = ((global::Gtk.ShadowType)(0));
-			// Container child balanceFrame.Gtk.Container+ContainerChild
+			this.accountsFrame = new global::Gtk.Frame ();
+			this.accountsFrame.Name = "accountsFrame";
+			this.accountsFrame.ShadowType = ((global::Gtk.ShadowType)(0));
+			// Container child accountsFrame.Gtk.Container+ContainerChild
 			this.GtkAlignment3 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
 			this.GtkAlignment3.Name = "GtkAlignment3";
 			this.GtkAlignment3.LeftPadding = ((uint)(12));
@@ -225,14 +225,14 @@ namespace LRDemo
 			this.accountsNodeView.Name = "accountsNodeView";
 			this.GtkScrolledWindow2.Add (this.accountsNodeView);
 			this.GtkAlignment3.Add (this.GtkScrolledWindow2);
-			this.balanceFrame.Add (this.GtkAlignment3);
+			this.accountsFrame.Add (this.GtkAlignment3);
 			this.lblAccounts = new global::Gtk.Label ();
 			this.lblAccounts.Name = "lblAccounts";
 			this.lblAccounts.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Accounts</b>");
 			this.lblAccounts.UseMarkup = true;
-			this.balanceFrame.LabelWidget = this.lblAccounts;
-			this.tblResponse.Add (this.balanceFrame);
-			global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.tblResponse [this.balanceFrame]));
+			this.accountsFrame.LabelWidget = this.lblAccounts;
+			this.tblResponse.Add (this.accountsFrame);
+			global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.tblResponse [this.accountsFrame]));
 			w20.LeftAttach = ((uint)(1));
 			w20.RightAttach = ((uint)(2));
 			// Container child tblResponse.Gtk.Table+TableChild
@@ -266,12 +266,14 @@ namespace LRDemo
 			global::Gtk.Table.TableChild w25 = ((global::Gtk.Table.TableChild)(this.tblLayout [this.tblResponse]));
 			w25.TopAttach = ((uint)(1));
 			w25.BottomAttach = ((uint)(2));
-			w25.XOptions = ((global::Gtk.AttachOptions)(4));
 			this.Add (this.tblLayout);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
+			this.btnAddOperation.Clicked += new global::System.EventHandler (this.OnAddOperationClicked);
+			this.btnRemoveOperation.Clicked += new global::System.EventHandler (this.OnRemoveOperationClicked);
+			this.btnSendRequest.Clicked += new global::System.EventHandler (this.OnSendRequestClicked);
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace LRDemo
 			public string Name { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
-			public DateTime Date { get; set; }
+			public string Date { get; set; }
 		}
 		
 		#endregion
@@ -42,6 +42,9 @@ namespace LRDemo
 		public AccountWidget ()
 		{
 			this.Build ();
+			InitOperationsNodeView();
+			InitAccountNodeView();
+			UpdateUI();
 		}
 		
 		#region Initialization
@@ -83,7 +86,7 @@ namespace LRDemo
 				{
 					AccountId = account.AccountToRetrieve,
 					Name = account.Name,
-					Date = account.Date,
+					Date = account.Date.ToString(),
 				};
 				accountStore.AddNode(node);
 			}

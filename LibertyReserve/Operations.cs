@@ -25,7 +25,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	
 	public class AccountNameOperation
 	{
-		protected const string OperationNodeName = "Account";
+		protected const string OperationNodeName = "AccountName";
 		protected const string AccountIdNodeName = "AccountId";
 		protected const string AccountToRetrieveNodeName = "AccountToRetrieve";
 		
