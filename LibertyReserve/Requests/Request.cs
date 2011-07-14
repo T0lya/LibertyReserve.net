@@ -17,7 +17,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		public int Timeout { get; set; }
 		public Encoding Encoding { get; set; }
 		public string Id { get; set; }
-		public AuthenticationBlock Auth { get; set; }
+		public AuthToken Auth { get; set; }
 		
 		public Request()
 		{
@@ -59,56 +59,4 @@ namespace Magnis.Web.Services.LibertyReserve
 			return request;
 		}
 	}
-	
-	
-	public class BalanceRequest : Request
-	{
-		protected const string RequestNodeName = "BalanceRequest";
-		protected const string BalanceNodeName = "Balance";
-		protected const string RequestUrl = "https://api.libertyreserve.com/xml/balance.aspx";
-		
-		public List<BalanceOperation> Operations { get; set; }
-				
-		public override XElement ToXML()
-		{
-			return
-				new XElement(RequestNodeName, new XAttribute(RequestIdAttributeName, Id),
-					Auth.ToXML(),
-					Operations.Select(op => op.ToXML()));
-		}
-		
-		public BalanceResponse GetResponse()
-		{
-			string response = Send(new Uri(RequestUrl));
-			
-			return BalanceResponse.Parse(response);
-		}
-	}
-	
-	
-	public class AccountNameRequest : Request
-	{
-		protected const string RequestNodeName = "AccountNameRequest";
-		protected const string AccountNameNodeName = "AccountName";
-		protected const string RequestUrl = "https://api.libertyreserve.com/xml/accountname.aspx";
-		
-		public List<AccountNameOperation> Operations { get; set; }
-		
-		public override XElement ToXML()
-		{
-			return
-				new XElement(RequestNodeName, new XAttribute(RequestIdAttributeName, Id),
-					Auth.ToXML(),
-					Operations.Select(op => op.ToXML())
-				);
-		}
-		
-		public AccountNameResponse GetResponse()
-		{
-			string response = Send(new Uri(RequestUrl));
-			
-			return AccountNameResponse.Parse(response);
-		}
-	}
 }
-

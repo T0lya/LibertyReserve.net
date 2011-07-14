@@ -1,6 +1,6 @@
 using System;
-using Magnis.Web.Services.LibertyReserve;
 using System.Collections.Generic;
+using Magnis.Web.Services.LibertyReserve;
 
 namespace LRDemo
 {
@@ -125,25 +125,28 @@ namespace LRDemo
 		
 		private void SendRequest()
 		{
-			ClearResponseData();
-			
-			AccountNameRequest request = PrepareRequest();
-			request.Auth = AuthenticationBlock.FromApiCredentials(ApiCredentialsProvider.Credentials);
-			try
+			if (ValidateRequestParams())
 			{
-				AccountNameResponse response = request.GetResponse();
-				ShowAccounts(response);
-				UIHelper.DisplayResponseErrors((Gtk.Window)Toplevel, response);
-			}
-			catch (LibertyReserveException e)
-			{
-				string message = "Process response failed: " + e.Message;
-				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
-			}
-			catch (Exception e)
-			{
-				string message = "Send request failed: " + e.Message;
-				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				ClearResponseData();
+				
+				AccountNameRequest request = PrepareRequest();
+				request.Auth = AuthToken.FromApiCredentials(ApiCredentialsProvider.Credentials);
+				try
+				{
+					AccountNameResponse response = request.GetResponse();
+					ShowAccounts(response);
+					UIHelper.DisplayResponseErrors((Gtk.Window)Toplevel, response);
+				}
+				catch (LibertyReserveException e)
+				{
+					string message = "Process response failed: " + e.Message;
+					UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				}
+				catch (Exception e)
+				{
+					string message = "Send request failed: " + e.Message;
+					UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				}
 			}
 		}
 		
@@ -162,7 +165,7 @@ namespace LRDemo
 			var request = new AccountNameRequest()
 			{
 				Id = Convert.ToString(DateTime.UtcNow.Ticks),
-				Auth = new AuthenticationBlock(),
+				Auth = new AuthToken(),
 				Operations = operations,
 			};
 			
@@ -171,10 +174,10 @@ namespace LRDemo
 		
 		#endregion
 		
+		#region Validation
+		
 		private bool ValidateOperationParams()
 		{
-			if (!ApiCredentialsProvider.Validate())
-				return false;
 			if (!UIHelper.ValidateEmptyEntry(txtAccountNumber, "Account number is not specified."))
 				return false;
 			if (!UIHelper.ValidateEmptyEntry(txtAccountToRetrieve, "Account number to retrieve is not specified."))
@@ -182,6 +185,21 @@ namespace LRDemo
 			
 			return true;
 		}
+		
+		private bool ValidateRequestParams()
+		{
+			if (!ApiCredentialsProvider.Validate())
+				return false;
+			if (operationStore.GetNode(Gtk.TreePath.NewFirst()) == null)
+			{
+				UIHelper.DisplayError((Gtk.Window)Toplevel, "You have to add at least one operation to the request.");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		#endregion
 		
 		#region Event handlers
 		

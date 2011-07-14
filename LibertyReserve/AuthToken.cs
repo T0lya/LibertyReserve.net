@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Magnis.Web.Services.LibertyReserve
 {
-	public class AuthenticationBlock
+	public class AuthToken
 	{
 		protected const string AuthNodeName = "Auth";
 		protected const string ApiNameNodeName = "ApiName";
@@ -16,11 +16,11 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		#region Constructors
 		
-		public AuthenticationBlock()
+		public AuthToken()
 		{
 		}
 		
-		public AuthenticationBlock(string apiName, string token)
+		public AuthToken(string apiName, string token)
 		{
 			ApiName = apiName;
 			Token = token;
@@ -28,10 +28,10 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		#endregion
 		
-		public static AuthenticationBlock FromApiCredentials(ApiCredentials credentials)
+		public static AuthToken FromApiCredentials(ApiCredentials credentials)
 		{
 			string token = CreateSecurityToken(credentials.SecurityWord);
-			var auth = new AuthenticationBlock(credentials.ApiName, token);
+			var auth = new AuthToken(credentials.ApiName, token);
 			
 			return auth;
 		}

@@ -40,12 +40,22 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ApiCredentials.cs" />
     <Compile Include="Currency.cs" />
-    <Compile Include="Operations.cs" />
-    <Compile Include="Requests.cs" />
-    <Compile Include="AuthenticationBlock.cs" />
-    <Compile Include="Responses.cs" />
     <Compile Include="LRConverter.cs" />
     <Compile Include="LibertyReserveException.cs" />
+    <Compile Include="Operations\BalanceOperation.cs" />
+    <Compile Include="Operations\AccountNameOperation.cs" />
+    <Compile Include="Requests\Request.cs" />
+    <Compile Include="Requests\BalanceRequest.cs" />
+    <Compile Include="Requests\AccountNameRequest.cs" />
+    <Compile Include="Responses\Response.cs" />
+    <Compile Include="Responses\BalanceResponse.cs" />
+    <Compile Include="Responses\AccountNameResponse.cs" />
+    <Compile Include="AuthToken.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Operations\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Responses\" />
+  </ItemGroup>
 </Project>

@@ -142,25 +142,28 @@ namespace LRDemo
 		
 		private void SendRequest()
 		{
-			ClearResponseData();
-			
-			BalanceRequest request = PrepareRequest();
-			request.Auth = AuthenticationBlock.FromApiCredentials(ApiCredentialsProvider.Credentials);
-			try
+			if (ValidateRequestParams())
 			{
-				BalanceResponse response = request.GetResponse();
-				ShowBalances(response);
-				ShowErrors(response);
-			}
-			catch (LibertyReserveException e)
-			{
-				string message = "Process response failed: " + e.Message;
-				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
-			}
-			catch (Exception e)
-			{
-				string message = "Send request failed: " + e.Message;
-				UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				ClearResponseData();
+				
+				BalanceRequest request = PrepareRequest();
+				request.Auth = AuthToken.FromApiCredentials(ApiCredentialsProvider.Credentials);
+				try
+				{
+					BalanceResponse response = request.GetResponse();
+					ShowBalances(response);
+					ShowErrors(response);
+				}
+				catch (LibertyReserveException e)
+				{
+					string message = "Process response failed: " + e.Message;
+					UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				}
+				catch (Exception e)
+				{
+					string message = "Send request failed: " + e.Message;
+					UIHelper.DisplayError((Gtk.Window)Toplevel, message);
+				}
 			}
 		}
 		
@@ -179,7 +182,7 @@ namespace LRDemo
 			var request = new BalanceRequest()
 			{
 				Id = Convert.ToString(DateTime.UtcNow.Ticks),
-				Auth = new AuthenticationBlock(),
+				Auth = new AuthToken(),
 				Operations = operations,
 			};
 			
@@ -188,10 +191,10 @@ namespace LRDemo
 		
 		#endregion
 		
+		#region Validation
+		
 		private bool ValidateOperationParams()
 		{
-			if (!ApiCredentialsProvider.Validate())
-				return false;
 			if (!UIHelper.ValidateEmptyEntry(txtAccountNumber, "Account number is not specified."))
 				return false;
 			if (!UIHelper.ValidateEmptyComboBox(cmbCurrency, "Currency is not specified."))
@@ -199,6 +202,21 @@ namespace LRDemo
 			
 			return true;
 		}
+		
+		private bool ValidateRequestParams()
+		{
+			if (!ApiCredentialsProvider.Validate())
+				return false;
+			if (operationStore.GetNode(Gtk.TreePath.NewFirst()) == null)
+			{
+				UIHelper.DisplayError((Gtk.Window)Toplevel, "You have to add at least one operation to the request.");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		#endregion
 		
 		#region Event handlers
 		
