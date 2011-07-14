@@ -25,6 +25,11 @@ namespace Magnis.Web.Services.LibertyReserve
 			}
 		}
 		
+		public static string ToString(double amount)
+		{
+			return amount.ToString("F4");
+		}
+		
 		public static Currency FromString(string currency)
 		{
 			switch (currency.ToUpper())
