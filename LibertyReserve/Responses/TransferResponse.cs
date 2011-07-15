@@ -91,18 +91,18 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public List<Receipt> Receipts { get; set; }
 		
+		public TransferResponse()
+		{
+			Receipts = new List<Receipt>();
+		}
+		
 		public static TransferResponse Parse(string responseText)
 		{
 			try
 			{
 				XElement xml = XElement.Parse(responseText);
-				var response = new TransferResponse
-				{
-					ResponseText = xml.ToString(),
-					RequestId = xml.Attribute(RequestIdAttributeName).Value,
-					Timestamp = LRConverter.ToDateTime(xml.Attribute(ResponseDateAttributeName).Value),
-					Receipts = new List<Receipt>(),
-				};
+				var response = new TransferResponse();
+				response.ParseHeader(xml);
 				foreach (XElement node in xml.Elements(ReceiptNodeName))
 				{
 					Receipt r = Receipt.Parse(node);
