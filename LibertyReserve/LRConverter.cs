@@ -10,6 +10,11 @@ namespace Magnis.Web.Services.LibertyReserve
 			return DateTime.ParseExact(value, "yyyy-dd-MM HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 		
+		public static double ToDouble(string value)
+		{
+			return Double.Parse(value, CultureInfo.InvariantCulture);
+		}
+		
 		public static string ToString(Currency currency)
 		{
 			switch (currency)
