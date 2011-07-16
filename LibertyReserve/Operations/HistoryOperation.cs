@@ -19,7 +19,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	}
 	
 	
-	public class TransactionHistoryOperation
+	public class HistoryOperation
 	{
 		protected const string OperationNodeName = "History";
 		protected const string CurrencyIdNodeName = "CurrencyId";
@@ -50,7 +50,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		public double? StartAmount { get; set; }
 		public double? EndAmount { get; set; }
 		
-		public TransactionHistoryOperation()
+		public HistoryOperation()
 		{
 			Anonymity = Anonymity.Any;
 			Direction = TransactionDirection.Any;

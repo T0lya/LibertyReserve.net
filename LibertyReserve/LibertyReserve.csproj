@@ -51,7 +51,9 @@
     <Compile Include="Responses\BalanceResponse.cs" />
     <Compile Include="Responses\AccountNameResponse.cs" />
     <Compile Include="AuthToken.cs" />
-    <Compile Include="Operations\TransactionHistoryOperation.cs" />
+    <Compile Include="Requests\HistoryRequest.cs" />
+    <Compile Include="Operations\HistoryOperation.cs" />
+    <Compile Include="Responses\HistoryResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
