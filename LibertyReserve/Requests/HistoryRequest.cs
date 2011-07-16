@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -10,14 +9,14 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string RequestNodeName = "HistoryRequest";
 		protected const string RequestUrl = "https://api.libertyreserve.com/xml/history.aspx";
 		
-		public List<HistoryOperation> Operations { get; set; }
+		public HistoryOperation Operation { get; set; }
 				
 		public override XElement ToXML()
 		{
 			return
 				new XElement(RequestNodeName, new XAttribute(RequestIdAttributeName, Id),
 					Auth.ToXML(),
-					Operations.Select(op => op.ToXML()));
+					Operation.ToXML());
 		}
 		
 		public HistoryResponse GetResponse()
