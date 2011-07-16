@@ -10,6 +10,11 @@ namespace Magnis.Web.Services.LibertyReserve
 			return DateTime.ParseExact(value, "yyyy-dd-MM HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 		
+		public static string ToString(DateTime timestamp)
+		{
+			return timestamp.ToString("yyyy-dd-MM HH:mm:ss");
+		}
+		
 		public static string ToString(Currency currency)
 		{
 			switch (currency)
@@ -23,6 +28,16 @@ namespace Magnis.Web.Services.LibertyReserve
 			default:
 				throw new NotImplementedException();
 			}
+		}
+		
+		public static string ToString(TransactionDirection direction)
+		{
+			return direction.ToString();
+		}
+		
+		public static string ToString(Anonymity anonymity)
+		{
+			return anonymity.ToString();
 		}
 		
 		public static Currency FromString(string currency)
