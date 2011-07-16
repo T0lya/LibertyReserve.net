@@ -39,6 +39,13 @@ namespace Magnis.Web.Services.LibertyReserve
 		public DateTime Timestamp { get; set; }
 		public List<ApiError> Errors { get; protected set; }
 		
+		protected void ParseHeader(XElement xml)
+		{
+			ResponseText = xml.ToString();
+			RequestId = xml.Attribute(RequestIdAttributeName).Value;
+			Timestamp = LRConverter.ToDateTime(xml.Attribute(ResponseDateAttributeName).Value);
+		}
+		
 		protected void ParseErrors(XElement xml)
 		{
 			Errors = new List<ApiError>();

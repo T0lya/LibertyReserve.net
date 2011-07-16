@@ -89,21 +89,6 @@ namespace LRDemo
 			}
 		}
 		
-		private void ShowErrors(BalanceResponse response)
-		{
-			if (response.Errors.Count > 0)
-			{
-				var sb = new StringBuilder("The server returned the following errors:");
-				sb.AppendLine();
-				foreach (ApiError error in response.Errors)
-				{
-					sb.AppendFormat("{0}: {1}", error.Code, error.Text);
-					sb.AppendLine();
-				}
-				UIHelper.DisplayError((Gtk.Window)Toplevel, sb.ToString());
-			}
-		}
-		
 		private void ClearResponseData()
 		{
 			balanceStore.Clear();
@@ -152,7 +137,7 @@ namespace LRDemo
 				{
 					BalanceResponse response = request.GetResponse();
 					ShowBalances(response);
-					ShowErrors(response);
+					UIHelper.DisplayResponseErrors((Gtk.Window)Toplevel, response);
 				}
 				catch (LibertyReserveException e)
 				{

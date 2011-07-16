@@ -15,6 +15,16 @@ namespace Magnis.Web.Services.LibertyReserve
 			return timestamp.ToString("yyyy-dd-MM HH:mm:ss");
 		}
 		
+		public static double ToDouble(string value)
+		{
+			return Double.Parse(value, CultureInfo.InvariantCulture);
+		}
+		
+		public static string ToString(double amount)
+		{
+			return amount.ToString("F4", CultureInfo.InvariantCulture);
+		}
+		
 		public static string ToString(Currency currency)
 		{
 			switch (currency)
@@ -40,7 +50,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			return anonymity.ToString();
 		}
 		
-		public static Currency FromString(string currency)
+		public static Currency ToCurrency(string currency)
 		{
 			switch (currency.ToUpper())
 			{

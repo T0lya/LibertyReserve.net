@@ -19,6 +19,8 @@ public partial class MainWindow
 	private global::Gtk.Label lblBalanceTab;
 	private global::LRDemo.AccountWidget accountWidget;
 	private global::Gtk.Label lblAccountNameTab;
+	private global::LRDemo.TransferWidget transferWidget;
+	private global::Gtk.Label lblTransfer;
     
 	protected virtual void Build ()
 	{
@@ -132,7 +134,7 @@ public partial class MainWindow
 		this.operationsNotebook = new global::Gtk.Notebook ();
 		this.operationsNotebook.CanFocus = true;
 		this.operationsNotebook.Name = "operationsNotebook";
-		this.operationsNotebook.CurrentPage = 0;
+		this.operationsNotebook.CurrentPage = 2;
 		// Container child operationsNotebook.Gtk.Notebook+NotebookChild
 		this.balanceWidget = new global::LRDemo.BalanceWidget ();
 		this.balanceWidget.Events = ((global::Gdk.EventMask)(256));
@@ -157,15 +159,28 @@ public partial class MainWindow
 		this.lblAccountNameTab.LabelProp = global::Mono.Unix.Catalog.GetString ("Account Name");
 		this.operationsNotebook.SetTabLabel (this.accountWidget, this.lblAccountNameTab);
 		this.lblAccountNameTab.ShowAll ();
+		// Container child operationsNotebook.Gtk.Notebook+NotebookChild
+		this.transferWidget = new global::LRDemo.TransferWidget ();
+		this.transferWidget.Events = ((global::Gdk.EventMask)(256));
+		this.transferWidget.Name = "transferWidget";
+		this.operationsNotebook.Add (this.transferWidget);
+		global::Gtk.Notebook.NotebookChild w12 = ((global::Gtk.Notebook.NotebookChild)(this.operationsNotebook [this.transferWidget]));
+		w12.Position = 2;
+		// Notebook tab
+		this.lblTransfer = new global::Gtk.Label ();
+		this.lblTransfer.Name = "lblTransfer";
+		this.lblTransfer.LabelProp = global::Mono.Unix.Catalog.GetString ("Transfer");
+		this.operationsNotebook.SetTabLabel (this.transferWidget, this.lblTransfer);
+		this.lblTransfer.ShowAll ();
 		this.layoutVBox.Add (this.operationsNotebook);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
-		w12.Position = 1;
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
+		w13.Position = 1;
 		this.Add (this.layoutVBox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 602;
-		this.DefaultHeight = 364;
+		this.DefaultHeight = 550;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}
