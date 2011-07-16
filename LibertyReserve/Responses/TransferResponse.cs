@@ -34,7 +34,7 @@ namespace Magnis.Web.Services.LibertyReserve
 				TransferType = xml.Element(TransferTypeNodeName).Value.Trim(),
 				Payer = xml.Element(PayerNodeName).Value.Trim(),
 				Payee = xml.Element(PayeeNodeName).Value.Trim(),
-				Currency = LRConverter.FromString(xml.Element(CurrencyNodeName).Value.Trim()),
+				Currency = LRConverter.ToCurrency(xml.Element(CurrencyNodeName).Value.Trim()),
 				Amount = LRConverter.ToDouble(xml.Element(AmountNodeName).Value),
 				Description = xml.Element(DescriptionNodeName).Value.Trim(),
 				Anonymous = Boolean.Parse(xml.Element(AnonymousNodeName).Value),

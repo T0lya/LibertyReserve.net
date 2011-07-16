@@ -21,7 +21,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			var balance = new Balance
 			{
 				AccountId = xml.Element(AccountIdNodeName).Value.Trim(),
-				Currency = LRConverter.FromString(xml.Element(CurrencyIdNodeName).Value.Trim()),
+				Currency = LRConverter.ToCurrency(xml.Element(CurrencyIdNodeName).Value.Trim()),
 				Value = LRConverter.ToDouble(xml.Element(ValueNodeName).Value),
 				Timestamp = LRConverter.ToDateTime(xml.Element(DateNodeName).Value.Trim()),
 			};

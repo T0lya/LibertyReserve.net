@@ -57,6 +57,8 @@
     <Compile Include="IApiCredentialsProvider.cs" />
     <Compile Include="gtk-gui\LRDemo.AccountWidget.cs" />
     <Compile Include="AccountWidget.cs" />
+    <Compile Include="TransferWidget.cs" />
+    <Compile Include="gtk-gui\LRDemo.TransferWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

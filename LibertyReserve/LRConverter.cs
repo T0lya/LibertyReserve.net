@@ -15,6 +15,11 @@ namespace Magnis.Web.Services.LibertyReserve
 			return Double.Parse(value, CultureInfo.InvariantCulture);
 		}
 		
+		public static string ToString(double amount)
+		{
+			return amount.ToString("F4", CultureInfo.InvariantCulture);
+		}
+		
 		public static string ToString(Currency currency)
 		{
 			switch (currency)
@@ -30,12 +35,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			}
 		}
 		
-		public static string ToString(double amount)
-		{
-			return amount.ToString("F4");
-		}
-		
-		public static Currency FromString(string currency)
+		public static Currency ToCurrency(string currency)
 		{
 			switch (currency.ToUpper())
 			{
