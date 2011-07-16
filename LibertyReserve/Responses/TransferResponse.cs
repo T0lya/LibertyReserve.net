@@ -10,7 +10,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string TransferTypeNodeName = "TransferType";
 		protected const string PayerNodeName = "Payer";
 		protected const string PayeeNodeName = "Payee";
-		protected const string CurrencyNodeName = "Currency";
+		protected const string CurrencyNodeName = "CurrencyId";
 		protected const string AmountNodeName = "Amount";
 		protected const string DescriptionNodeName = "Memo";
 		protected const string AnonymousNodeName = "Anonymous";
@@ -50,8 +50,8 @@ namespace Magnis.Web.Services.LibertyReserve
 	{
 		protected const string ReceiptIdNodeName = "ReceiptId";
 		protected const string DateNodeName = "Date";
-		protected const string PayerNodeName = "Payer";
-		protected const string PayeeNodeName = "Payee";
+		protected const string PayerNodeName = "PayerName";
+		protected const string PayeeNodeName = "PayeeName";
 		protected const string AmountNodeName = "Amount";
 		protected const string FeeNodeName = "Fee";
 		protected const string ClosingBalanceNodeName = "ClosingBalance";

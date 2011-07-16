@@ -8,7 +8,6 @@ namespace Magnis.Web.Services.LibertyReserve
 	public class TransferRequest : Request
 	{
 		protected const string RequestNodeName = "TransferRequest";
-		protected const string TransferNodeName = "Transfer";
 		protected const string RequestUrl = "https://api.libertyreserve.com/xml/transfer.aspx";
 		
 		public List<TransferOperation> Operations { get; set; }

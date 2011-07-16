@@ -31,10 +31,10 @@ namespace LRDemo
 			public double Amount { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 5)]
-			public string Description { get; set; }
+			public string IsAnonymous { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 6)]
-			public string IsAnonymous { get; set; }
+			public string Description { get; set; }
 		}
 		
 		[Gtk.TreeNode(ListOnly = true)]
