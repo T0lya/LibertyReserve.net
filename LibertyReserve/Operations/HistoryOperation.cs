@@ -19,6 +19,28 @@ namespace Magnis.Web.Services.LibertyReserve
 	}
 	
 	
+	public class Pager
+	{
+		internal const string PagerNodeName = "Pager";
+		protected const string PageSizeNodeName = "PageSize";
+		protected const string PageNumberNodeName = "PageNumber";
+		protected const string PageCountNodeName = "PageCount";
+		
+		public int PageSize { get; set; }
+		public int PageNumber { get; set; }
+		public int PageCount { get; set; }
+		
+		public XElement ToXML()
+		{
+			return
+				new XElement(PagerNodeName,
+					new XElement(PageSizeNodeName, PageSize),
+					new XElement(PageCountNodeName, PageCount)
+				);
+		}
+	}
+	
+	
 	public class HistoryOperation
 	{
 		protected const string OperationNodeName = "History";
@@ -49,6 +71,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		public Anonymity Anonymity { get; set; }
 		public double? StartAmount { get; set; }
 		public double? EndAmount { get; set; }
+		public Pager Pager { get; set; }
 		
 		public HistoryOperation()
 		{
@@ -70,7 +93,8 @@ namespace Magnis.Web.Services.LibertyReserve
 					new XElement(ReceiptIdNodeName, ReceiptId ?? String.Empty),
 					new XElement(TransferTypeNodeName, TransferType ?? String.Empty),
 					new XElement(SourceNodeName, Source ?? String.Empty),
-					new XElement(AnonymousNodeName, LRConverter.ToString(Anonymity) )
+					new XElement(AnonymousNodeName, LRConverter.ToString(Anonymity)),
+					Pager != null ? Pager.ToXML() : new XElement(Pager.PagerNodeName)
 				);
 		}
 	}
