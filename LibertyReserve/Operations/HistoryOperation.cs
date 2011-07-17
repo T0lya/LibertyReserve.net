@@ -38,6 +38,18 @@ namespace Magnis.Web.Services.LibertyReserve
 					new XElement(PageCountNodeName, PageCount)
 				);
 		}
+		
+		public static Pager Parse(XElement xml)
+		{
+			var pager = new Pager
+			{
+				PageSize = Int32.Parse(xml.Element(PageSizeNodeName).Value),
+				PageNumber = Int32.Parse(xml.Element(PageNumberNodeName).Value),
+				PageCount = Int32.Parse(xml.Element(PageCountNodeName).Value),
+			};
+			
+			return pager;
+		}
 	}
 	
 	

@@ -48,6 +48,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	
 	public class Receipt
 	{
+		internal const string ReceiptNodeName = "Receipt";
 		protected const string ReceiptIdNodeName = "ReceiptId";
 		protected const string DateNodeName = "Date";
 		protected const string PayerNodeName = "PayerName";
@@ -87,9 +88,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	
 	public class TransferResponse : Response
 	{
-		protected const string ReceiptNodeName = "Receipt";
-		
-		public List<Receipt> Receipts { get; set; }
+		public List<Receipt> Receipts { get; protected set; }
 		
 		public TransferResponse()
 		{
@@ -103,7 +102,7 @@ namespace Magnis.Web.Services.LibertyReserve
 				XElement xml = XElement.Parse(responseText);
 				var response = new TransferResponse();
 				response.ParseHeader(xml);
-				foreach (XElement node in xml.Elements(ReceiptNodeName))
+				foreach (XElement node in xml.Elements(Receipt.ReceiptNodeName))
 				{
 					Receipt r = Receipt.Parse(node);
 					response.Receipts.Add(r);
