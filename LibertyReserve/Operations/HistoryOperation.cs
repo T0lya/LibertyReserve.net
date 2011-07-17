@@ -25,10 +25,12 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string PageSizeNodeName = "PageSize";
 		protected const string PageNumberNodeName = "PageNumber";
 		protected const string PageCountNodeName = "PageCount";
+		protected const string TotalCountNodeName = "TotalCount";
 		
 		public int PageSize { get; set; }
 		public int PageNumber { get; set; }
 		public int PageCount { get; set; }
+		public int TotalCount { get; set; }
 		
 		public XElement ToXML()
 		{
@@ -46,6 +48,7 @@ namespace Magnis.Web.Services.LibertyReserve
 				PageSize = Int32.Parse(xml.Element(PageSizeNodeName).Value),
 				PageNumber = Int32.Parse(xml.Element(PageNumberNodeName).Value),
 				PageCount = Int32.Parse(xml.Element(PageCountNodeName).Value),
+				TotalCount = Int32.Parse(xml.Element(TotalCountNodeName).Value),
 			};
 			
 			return pager;
