@@ -15,14 +15,17 @@ namespace LRDemo
 		class BalanceTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Account ID")]
 			public string AccountNumber { get; set; }
 			
 			public Currency Currency { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Currency")]
 			public string CurrencyName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
+			[TreeNodeColumn("Value")]
 			public double Value { get; set; }
 		}
 		
@@ -57,9 +60,7 @@ namespace LRDemo
 		private void InitBalanceNodeView()
 		{
 			balanceNodeView.NodeStore = balanceStore;
-			balanceNodeView.AppendColumn("Account ID", new Gtk.CellRendererText(), "text", 0);
-			balanceNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 1);
-			balanceNodeView.AppendColumn("Value", new Gtk.CellRendererText(), "text", 2);
+			balanceNodeView.AutoGenerateColumns(typeof(BalanceTreeNode));
 			balanceNodeView.ShowAll();
 		}
 

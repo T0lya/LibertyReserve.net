@@ -12,45 +12,59 @@ namespace LRDemo
 		class HistoryTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Receipt ID")]
 			public string ReceiptId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Transfer ID")]
 			public string TransferId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
+			[TreeNodeColumn("Date")]
 			public string Date { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 3)]
+			[TreeNodeColumn("Payer")]
 			public string Payer { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 4)]
+			[TreeNodeColumn("Payer Name")]
 			public string PayerName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 5)]
+			[TreeNodeColumn("Payee")]
 			public string Payee { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 6)]
+			[TreeNodeColumn("Payee Name")]
 			public string PayeeName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 7)]
+			[TreeNodeColumn("Currency")]
 			public string Currency { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 8)]
+			[TreeNodeColumn("Amount")]
 			public string Amount { get; set; }
 						
 			[Gtk.TreeNodeValue(Column = 9)]
+			[TreeNodeColumn("Closing Balance")]
 			public string ClosingBalance { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 10)]
+			[TreeNodeColumn("Fee")]
 			public string Fee { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 11)]
+			[TreeNodeColumn("Source")]
 			public string Source { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 12)]
+			[TreeNodeColumn("Anonymous")]
 			public string Anonymous { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 13)]
+			[TreeNodeColumn("Description")]
 			public string Description { get; set; }
 		}
 		
@@ -75,20 +89,7 @@ namespace LRDemo
 		private void InitHistoryNodeView()
 		{
 			historyNodeView.NodeStore = historyStore;
-			historyNodeView.AppendColumn("Receipt ID", new Gtk.CellRendererText(), "text", 0);
-			historyNodeView.AppendColumn("Transfer ID", new Gtk.CellRendererText(), "text", 1);
-			historyNodeView.AppendColumn("Date", new Gtk.CellRendererText(), "text", 2);
-			historyNodeView.AppendColumn("Payer", new Gtk.CellRendererText(), "text", 3);
-			historyNodeView.AppendColumn("Payer Name", new Gtk.CellRendererText(), "text", 4);
-			historyNodeView.AppendColumn("Payee", new Gtk.CellRendererText(), "text", 5);
-			historyNodeView.AppendColumn("Payee Name", new Gtk.CellRendererText(), "text", 6);
-			historyNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 7);
-			historyNodeView.AppendColumn("Amount", new Gtk.CellRendererText(), "text", 8);
-			historyNodeView.AppendColumn("Closing Balance", new Gtk.CellRendererText(), "text", 9);
-			historyNodeView.AppendColumn("Fee", new Gtk.CellRendererText(), "text", 10);
-			historyNodeView.AppendColumn("Source", new Gtk.CellRendererText(), "text", 11);
-			historyNodeView.AppendColumn("Anonymous", new Gtk.CellRendererText(), "text", 12);
-			historyNodeView.AppendColumn("Description", new Gtk.CellRendererText(), "text", 13);
+			historyNodeView.AutoGenerateColumns(typeof(HistoryTreeNode));
 			historyNodeView.ShowAll();
 		}
 		

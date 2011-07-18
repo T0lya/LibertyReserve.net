@@ -13,9 +13,11 @@ namespace LRDemo
 		class OperationTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Account ID")]
 			public string AccountId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Account To Retrieve")]
 			public string AccountToRetrieve { get; set; }
 		}
 		
@@ -23,12 +25,15 @@ namespace LRDemo
 		class ResponseTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Account ID")]
 			public string AccountId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Name")]
 			public string Name { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
+			[TreeNodeColumn("Date")]
 			public string Date { get; set; }
 		}
 		
@@ -52,8 +57,7 @@ namespace LRDemo
 		private void InitOperationsNodeView()
 		{
 			operationsNodeView.NodeStore = operationStore;
-			operationsNodeView.AppendColumn("Account ID", new Gtk.CellRendererText(), "text", 0);
-			operationsNodeView.AppendColumn("Account To Retrieve", new Gtk.CellRendererText(), "text", 1);
+			operationsNodeView.AutoGenerateColumns(typeof(OperationTreeNode));
 			operationsNodeView.ShowAll();
 			operationsNodeView.NodeSelection.Changed += (sender, args) => UpdateUI();
 		}
@@ -61,9 +65,7 @@ namespace LRDemo
 		private void InitAccountNodeView()
 		{
 			accountsNodeView.NodeStore = accountStore;
-			accountsNodeView.AppendColumn("Account ID", new Gtk.CellRendererText(), "text", 0);
-			accountsNodeView.AppendColumn("Name", new Gtk.CellRendererText(), "text", 1);
-			accountsNodeView.AppendColumn("Date", new Gtk.CellRendererText(), "text", 2);
+			accountsNodeView.AutoGenerateColumns(typeof(ResponseTreeNode));
 			accountsNodeView.ShowAll();
 		}
 

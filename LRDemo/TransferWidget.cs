@@ -14,26 +14,33 @@ namespace LRDemo
 		class OperationTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Transfer ID")]
 			public string TransferId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Payer")]
 			public string Payer { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
+			[TreeNodeColumn("Payee")]
 			public string Payee { get; set; }
 			
 			public Currency Currency { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 3)]
+			[TreeNodeColumn("Currency")]
 			public string CurrencyName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 4)]
+			[TreeNodeColumn("Amount")]
 			public double Amount { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 5)]
+			[TreeNodeColumn("Anonymous")]
 			public string IsAnonymous { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 6)]
+			[TreeNodeColumn("Description")]
 			public string Description { get; set; }
 		}
 		
@@ -41,39 +48,51 @@ namespace LRDemo
 		class ReceiptTreeNode : Gtk.TreeNode
 		{
 			[Gtk.TreeNodeValue(Column = 0)]
+			[TreeNodeColumn("Transfer ID")]
 			public string TransferId { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 1)]
+			[TreeNodeColumn("Payer")]
 			public string Payer { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 2)]
+			[TreeNodeColumn("Payer Name")]
 			public string PayerName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 3)]
+			[TreeNodeColumn("Payee")]
 			public string Payee { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 4)]
+			[TreeNodeColumn("Payee Name")]
 			public string PayeeName { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 5)]
+			[TreeNodeColumn("Currency")]
 			public string Currency { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 6)]
+			[TreeNodeColumn("Amount")]
 			public double Amount { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 7)]
+			[TreeNodeColumn("Fee")]
 			public double Fee { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 8)]
+			[TreeNodeColumn("Closing Balance")]
 			public double ClosingBalace { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 9)]
+			[TreeNodeColumn("Anonymous")]
 			public string IsAnonymous { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 10)]
+			[TreeNodeColumn("Description")]
 			public string Description { get; set; }
 			
 			[Gtk.TreeNodeValue(Column = 11)]
+			[TreeNodeColumn("Source")]
 			public string Source { get; set; }
 		}
 		
@@ -98,13 +117,7 @@ namespace LRDemo
 		private void InitOperationsNodeView()
 		{
 			operationsNodeView.NodeStore = operationStore;
-			operationsNodeView.AppendColumn("Transfer ID", new Gtk.CellRendererText(), "text", 0);
-			operationsNodeView.AppendColumn("Payer", new Gtk.CellRendererText(), "text", 1);
-			operationsNodeView.AppendColumn("Payee", new Gtk.CellRendererText(), "text", 2);
-			operationsNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 3);
-			operationsNodeView.AppendColumn("Amount", new Gtk.CellRendererText(), "text", 4);
-			operationsNodeView.AppendColumn("Anonymous", new Gtk.CellRendererText(), "text", 5);
-			operationsNodeView.AppendColumn("Description", new Gtk.CellRendererText(), "text", 6);
+			operationsNodeView.AutoGenerateColumns(typeof(OperationTreeNode));
 			operationsNodeView.ShowAll();
 			operationsNodeView.NodeSelection.Changed += (sender, args) => UpdateUI();
 		}
@@ -112,18 +125,7 @@ namespace LRDemo
 		private void InitTransfersNodeView()
 		{
 			receiptNodeView.NodeStore = receiptStore;
-			receiptNodeView.AppendColumn("Transfer ID", new Gtk.CellRendererText(), "text", 0);
-			receiptNodeView.AppendColumn("Payer", new Gtk.CellRendererText(), "text", 1);
-			receiptNodeView.AppendColumn("Payer Name", new Gtk.CellRendererText(), "text", 2);
-			receiptNodeView.AppendColumn("Payee", new Gtk.CellRendererText(), "text", 3);
-			receiptNodeView.AppendColumn("Payee Name", new Gtk.CellRendererText(), "text", 4);
-			receiptNodeView.AppendColumn("Currency", new Gtk.CellRendererText(), "text", 5);
-			receiptNodeView.AppendColumn("Amount", new Gtk.CellRendererText(), "text", 6);
-			receiptNodeView.AppendColumn("Fee", new Gtk.CellRendererText(), "text", 7);
-			receiptNodeView.AppendColumn("Closing Balance", new Gtk.CellRendererText(), "text", 8);
-			receiptNodeView.AppendColumn("Anonymous", new Gtk.CellRendererText(), "text", 9);
-			receiptNodeView.AppendColumn("Description", new Gtk.CellRendererText(), "text", 10);
-			receiptNodeView.AppendColumn("Source", new Gtk.CellRendererText(), "text", 11);
+			receiptNodeView.AutoGenerateColumns(typeof(ReceiptTreeNode));
 			receiptNodeView.ShowAll();
 		}
 		
