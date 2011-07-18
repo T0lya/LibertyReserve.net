@@ -37,7 +37,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			return
 				new XElement(PagerNodeName,
 					new XElement(PageSizeNodeName, PageSize != null ? PageSize.ToString() : String.Empty),
-					new XElement(PageSizeNodeName, PageSize != null ? PageSize.ToString() : String.Empty)
+					new XElement(PageNumberNodeName, PageNumber != null ? PageNumber.ToString() : String.Empty)
 				);
 		}
 		
@@ -109,6 +109,8 @@ namespace Magnis.Web.Services.LibertyReserve
 					new XElement(TransferTypeNodeName, TransferType ?? String.Empty),
 					new XElement(SourceNodeName, Source ?? String.Empty),
 					new XElement(AnonymousNodeName, LRConverter.ToString(Anonymity)),
+					new XElement(AmountFromNodeName, StartAmount != null ? LRConverter.ToString(StartAmount.Value) : String.Empty),
+					new XElement(AmountToNodeName, EndAmount != null ? LRConverter.ToString(EndAmount.Value) : String.Empty),
 					Pager != null ? Pager.ToXML() : new XElement(Pager.PagerNodeName)
 				);
 		}
