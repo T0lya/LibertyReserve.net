@@ -59,6 +59,8 @@
     <Compile Include="AccountWidget.cs" />
     <Compile Include="TransferWidget.cs" />
     <Compile Include="gtk-gui\LRDemo.TransferWidget.cs" />
+    <Compile Include="HistoryWidget.cs" />
+    <Compile Include="gtk-gui\LRDemo.HistoryWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

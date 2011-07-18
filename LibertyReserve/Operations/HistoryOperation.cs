@@ -27,8 +27,8 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string PageCountNodeName = "PageCount";
 		protected const string TotalCountNodeName = "TotalCount";
 		
-		public int PageSize { get; set; }
-		public int PageNumber { get; set; }
+		public int? PageSize { get; set; }
+		public int? PageNumber { get; set; }
 		public int PageCount { get; set; }
 		public int TotalCount { get; set; }
 		
@@ -36,8 +36,8 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(PagerNodeName,
-					new XElement(PageSizeNodeName, PageSize),
-					new XElement(PageCountNodeName, PageCount)
+					new XElement(PageSizeNodeName, PageSize != null ? PageSize.ToString() : String.Empty),
+					new XElement(PageSizeNodeName, PageSize != null ? PageSize.ToString() : String.Empty)
 				);
 		}
 		
@@ -73,7 +73,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string AmountFromNodeName = "AmountFrom";
 		protected const string AmountToNodeName = "AmountTo";
 		
-		public Currency Currency { get; set; }
+		public Currency? Currency { get; set; }
 		public string AccountId { get; set; }
 		public DateTime? StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
@@ -98,7 +98,7 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(OperationNodeName,
-					new XElement(CurrencyIdNodeName, LRConverter.ToString(Currency)),
+					new XElement(CurrencyIdNodeName, Currency != null ? LRConverter.ToString(Currency.Value) : String.Empty),
 					new XElement(AccountIdNodeName, AccountId),
 					new XElement(StartDateNodeName, StartDate != null ? LRConverter.ToString(StartDate.Value) : String.Empty),
 					new XElement(EndDateNodeName, EndDate != null ? LRConverter.ToString(EndDate.Value) : String.Empty),

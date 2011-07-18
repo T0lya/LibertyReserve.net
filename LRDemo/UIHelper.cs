@@ -9,7 +9,7 @@ namespace LRDemo
 {
 	public static class UIHelper
 	{
-		public static void FillCurrencyComboBox(ComboBox combobox)
+		public static void FillCurrencyComboBox(ComboBox combobox, bool addEmptyEntry = false)
 		{
 			combobox.Clear();
 			
@@ -17,7 +17,7 @@ namespace LRDemo
 			combobox.PackStart(cell, false);
 			combobox.AddAttribute(cell, "text", 0);
 			
-			var store = new ListStore(typeof(string), typeof(Currency));
+			var store = new ListStore(typeof(string), typeof(Currency?));
 			combobox.Model = store;
 			var currencies = new SortedList<string, Currency>();
 			foreach (int value in Enum.GetValues(typeof(Currency))) 
@@ -25,12 +25,41 @@ namespace LRDemo
 				Currency c = (Currency)value;
 				currencies.Add(c.ToString(), c);
 			}
+			if (addEmptyEntry)
+				store.AppendValues(String.Empty, null);
 			foreach (KeyValuePair<string, Currency> pair in currencies)
 				store.AppendValues(pair.Key, pair.Value);
 			
 			TreeIter firstIter;
 			if (combobox.Model.GetIterFirst(out firstIter))
 				combobox.SetActiveIter(firstIter);
+		}
+		
+		public static Currency? GetCurrency(ComboBox combobox)
+		{
+			Gtk.TreeIter currencyIter;
+			combobox.GetActiveIter(out currencyIter);
+			Currency? currency = (Currency?)combobox.Model.GetValue(currencyIter, 1);
+			
+			return currency;
+		}
+		
+		public static DateTime? GetDate(Gtk.Entry entry)
+		{
+			string value = entry.Text.Trim();
+			if (String.IsNullOrEmpty(value))
+				return null;
+			return LRConverter.ToDateTime(value);
+		}
+		
+		public static double? GetDouble(Gtk.SpinButton spinButton)
+		{
+			return spinButton.Value != 0.0 ? (double?)spinButton.Value : null;
+		}
+		
+		public static int? GetInt(Gtk.SpinButton spinButton)
+		{
+			return spinButton.Value != 0.0 ? (int?)spinButton.Value : null;
 		}
 		
 		public static void DisplayError(Window parent, string message)
@@ -56,6 +85,8 @@ namespace LRDemo
 				UIHelper.DisplayError(parent, sb.ToString());
 			}
 		}
+		
+		#region Validation
 		
 		public static bool ValidateEmptyEntry(Entry entry, string errorMessage, bool trim = true)
 		{
@@ -87,6 +118,26 @@ namespace LRDemo
 			
 			return true;
 		}
+		
+		public static bool ValidateDate(Entry entry, string errorMessage)
+		{
+			try
+			{
+				LRConverter.ToDateTime(entry.Text.Trim());
+			}
+			catch
+			{
+				entry.GrabFocus();
+				UIHelper.DisplayError((Gtk.Window)entry.Toplevel, errorMessage);
+				
+				return false;
+			}
+			
+			return true;
+		}
+		
+		#endregion
+		
 	}
 }
 
