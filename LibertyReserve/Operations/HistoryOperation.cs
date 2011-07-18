@@ -36,8 +36,8 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(PagerNodeName,
-					new XElement(PageSizeNodeName, PageSize != null ? PageSize.ToString() : String.Empty),
-					new XElement(PageNumberNodeName, PageNumber != null ? PageNumber.ToString() : String.Empty)
+					new XElement(PageSizeNodeName, PageSize.ToString()),
+					new XElement(PageNumberNodeName, PageNumber.ToString())
 				);
 		}
 		
@@ -98,19 +98,19 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(OperationNodeName,
-					new XElement(CurrencyIdNodeName, Currency != null ? LRConverter.ToString(Currency.Value) : String.Empty),
+					new XElement(CurrencyIdNodeName, LRConverter.ToString(Currency)),
 					new XElement(AccountIdNodeName, AccountId),
-					new XElement(StartDateNodeName, StartDate != null ? LRConverter.ToString(StartDate.Value) : String.Empty),
-					new XElement(EndDateNodeName, EndDate != null ? LRConverter.ToString(EndDate.Value) : String.Empty),
-					new XElement(CorrespondingAccountIdNodeName, CorrespondingAccountId ?? String.Empty),
+					new XElement(StartDateNodeName, LRConverter.ToString(StartDate)),
+					new XElement(EndDateNodeName, LRConverter.ToString(EndDate)),
+					new XElement(CorrespondingAccountIdNodeName, CorrespondingAccountId),
 					new XElement(DirectionNodeName, LRConverter.ToString(Direction)),
-					new XElement(TransferIdNodeName, TransferId ?? String.Empty),
-					new XElement(ReceiptIdNodeName, ReceiptId ?? String.Empty),
-					new XElement(TransferTypeNodeName, TransferType ?? String.Empty),
-					new XElement(SourceNodeName, Source ?? String.Empty),
+					new XElement(TransferIdNodeName, TransferId),
+					new XElement(ReceiptIdNodeName, ReceiptId),
+					new XElement(TransferTypeNodeName, TransferType),
+					new XElement(SourceNodeName, Source),
 					new XElement(AnonymousNodeName, LRConverter.ToString(Anonymity)),
-					new XElement(AmountFromNodeName, StartAmount != null ? LRConverter.ToString(StartAmount.Value) : String.Empty),
-					new XElement(AmountToNodeName, EndAmount != null ? LRConverter.ToString(EndAmount.Value) : String.Empty),
+					new XElement(AmountFromNodeName, LRConverter.ToString(StartAmount)),
+					new XElement(AmountToNodeName, LRConverter.ToString(EndAmount)),
 					Pager != null ? Pager.ToXML() : new XElement(Pager.PagerNodeName)
 				);
 		}

@@ -44,6 +44,8 @@ namespace LRDemo
 			return currency;
 		}
 		
+		#region Value retrievement
+		
 		public static DateTime? GetDate(Gtk.Entry entry)
 		{
 			string value = entry.Text.Trim();
@@ -61,6 +63,10 @@ namespace LRDemo
 		{
 			return spinButton.Value != 0.0 ? (int?)spinButton.Value : null;
 		}
+				
+		#endregion
+		
+		#region Message boxes
 		
 		public static void DisplayError(Window parent, string message)
 		{
@@ -70,7 +76,7 @@ namespace LRDemo
 				dlg.Destroy();
 			}
 		}
-		
+
 		public static void DisplayResponseErrors(Window parent, Response response)
 		{
 			if (response.Errors.Count > 0)
@@ -85,6 +91,8 @@ namespace LRDemo
 				UIHelper.DisplayError(parent, sb.ToString());
 			}
 		}
+		
+		#endregion
 		
 		#region Validation
 		

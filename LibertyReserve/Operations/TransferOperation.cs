@@ -29,13 +29,13 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			return
 				new XElement(OperationNodeName,
-					new XElement(TransferIdNodeName, TransferId ?? String.Empty),
+					new XElement(TransferIdNodeName, TransferId),
 					new XElement(TransferTypeNodeName, TransferType),
 					new XElement(PayerNodeName, Payer),
 					new XElement(PayeeNodeName, Payee),
 					new XElement(CurrencyIdNodeName, LRConverter.ToString(Currency)),
 					new XElement(AmountNodeName, LRConverter.ToString(Amount)),
-					new XElement(MemoNodeName, Description ?? String.Empty),
+					new XElement(MemoNodeName, Description),
 					new XElement(AnonymousNodeName, Anonymous)
 				);
 		}

@@ -8,7 +8,6 @@ namespace Magnis.Web.Services.LibertyReserve
 	public class BalanceRequest : Request
 	{
 		protected const string RequestNodeName = "BalanceRequest";
-		protected const string BalanceNodeName = "Balance";
 		protected const string RequestUrl = "https://api.libertyreserve.com/xml/balance.aspx";
 		
 		public List<BalanceOperation> Operations { get; set; }

@@ -10,9 +10,9 @@ namespace Magnis.Web.Services.LibertyReserve
 			return DateTime.ParseExact(value, "yyyy-dd-MM HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 		
-		public static string ToString(DateTime timestamp)
+		public static string ToString(DateTime? timestamp)
 		{
-			return timestamp.ToString("yyyy-dd-MM HH:mm:ss");
+			return timestamp != null ? timestamp.Value.ToString("yyyy-dd-MM HH:mm:ss") : null;
 		}
 		
 		public static double ToDouble(string value)
@@ -20,15 +20,17 @@ namespace Magnis.Web.Services.LibertyReserve
 			return Double.Parse(value, CultureInfo.InvariantCulture);
 		}
 		
-		public static string ToString(double amount)
+		public static string ToString(double? amount)
 		{
-			return amount.ToString("F4", CultureInfo.InvariantCulture);
+			return amount != null ? amount.Value.ToString("F4", CultureInfo.InvariantCulture) : null;
 		}
 		
-		public static string ToString(Currency currency)
+		public static string ToString(Currency? currency)
 		{
 			switch (currency)
 			{
+			case null:
+				return null;
 			case Currency.EUR:
 				return "LREUR";
 			case Currency.USD:
