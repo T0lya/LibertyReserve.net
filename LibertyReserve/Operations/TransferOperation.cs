@@ -25,6 +25,16 @@ namespace Magnis.Web.Services.LibertyReserve
 		public string Description { get; set; }
 		public bool Anonymous { get; set; }
 		
+		public void Check()
+		{
+			if (String.IsNullOrEmpty(Payer))
+				throw new LibertyReserveException("Payer is missing.");
+			if (String.IsNullOrEmpty(Payee))
+				throw new LibertyReserveException("Payee is missing.");
+			if (Amount <= 0.0)
+				throw new LibertyReserveException("Invalid amount value.");
+		}
+		
 		public XElement ToXML()
 		{
 			return

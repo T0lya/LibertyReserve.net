@@ -32,6 +32,14 @@ namespace Magnis.Web.Services.LibertyReserve
 		public int PageCount { get; set; }
 		public int TotalCount { get; set; }
 		
+		public void Check()
+		{
+			if (PageSize != null && PageSize <= 0)
+				throw new LibertyReserveException("Page size must be greater than zero.");
+			if (PageNumber != null && PageNumber <= 0)
+				throw new LibertyReserveException("Page number must be greater than zero.");
+		}
+		
 		public XElement ToXML()
 		{
 			return
@@ -92,6 +100,18 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			Anonymity = Anonymity.Any;
 			Direction = TransactionDirection.Any;
+		}
+		
+		public void Check()
+		{
+			if (String.IsNullOrEmpty(AccountId))
+				throw new LibertyReserveException("Account ID is missing.");
+			if (StartDate != null && EndDate != null && StartDate < EndDate)
+				throw new LibertyReserveException("End date must be greater than start date.");
+			if (StartAmount != null && EndAmount != null && StartAmount < EndAmount)
+				throw new LibertyReserveException("End amount must be greater than start amount.");
+			if (Pager != null)
+				Pager.Check();
 		}
 		
 		public XElement ToXML()

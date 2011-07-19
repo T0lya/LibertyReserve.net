@@ -11,6 +11,14 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public HistoryOperation Operation { get; set; }
 				
+		protected override void CheckRequest()
+		{
+			base.CheckRequest();
+			if (Operation == null)
+				throw new LibertyReserveException("Operation is missing.");
+			Operation.Check();
+		}
+		
 		public override XElement ToXML()
 		{
 			return

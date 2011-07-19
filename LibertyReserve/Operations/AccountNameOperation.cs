@@ -12,6 +12,14 @@ namespace Magnis.Web.Services.LibertyReserve
 		public string AccountId { get; set; }
 		public string AccountToRetrieve { get; set; }
 		
+		public void Check()
+		{
+			if (String.IsNullOrEmpty(AccountId))
+				throw new LibertyReserveException("Account ID is missing.");
+			if (String.IsNullOrEmpty(AccountToRetrieve))
+				throw new LibertyReserveException("Account to retrieve is missing.");
+		}
+		
 		public XElement ToXML()
 		{
 			return

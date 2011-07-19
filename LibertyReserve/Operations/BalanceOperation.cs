@@ -12,6 +12,12 @@ namespace Magnis.Web.Services.LibertyReserve
 		public Currency Currency { get; set; }
 		public string AccountId { get; set; }
 		
+		public void Check()
+		{
+			if (String.IsNullOrEmpty(AccountId))
+				throw new LibertyReserveException("Account ID is missing.");
+		}
+		
 		public XElement ToXML()
 		{
 			return

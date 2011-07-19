@@ -12,6 +12,15 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public List<BalanceOperation> Operations { get; set; }
 				
+		protected override void CheckRequest()
+		{
+			base.CheckRequest();
+			if (Operations == null || Operations.Count == 0)
+				throw new LibertyReserveException("Operation is missing.");
+			foreach (BalanceOperation operation in Operations)
+				operation.Check();
+		}
+		
 		public override XElement ToXML()
 		{
 			return

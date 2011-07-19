@@ -47,7 +47,15 @@ namespace Magnis.Web.Services.LibertyReserve
 				return token;
 			}
 		}
-		
+
+		public void Check()
+		{
+			if (String.IsNullOrEmpty(ApiName))
+				throw new LibertyReserveException("API name is missing.");
+			if (String.IsNullOrEmpty(Token))
+				throw new LibertyReserveException("Token is missing.");
+		}
+
 		public XElement ToXML()
 		{
 			return 	

@@ -27,8 +27,17 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public abstract XElement ToXML();
 		
+		protected virtual void CheckRequest()
+		{
+			Auth.Check();
+			if (String.IsNullOrEmpty(Id))
+				throw new LibertyReserveException("Request identifier is missing.");
+		}
+		
 		public string Send(Uri url)
 		{
+			CheckRequest();
+			
 			HttpWebRequest request = CreateWebRequest(url);
 			using (WebResponse response = request.GetResponse())
 			{
