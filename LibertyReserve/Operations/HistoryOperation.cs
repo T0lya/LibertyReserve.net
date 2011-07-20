@@ -106,6 +106,13 @@ namespace Magnis.Web.Services.LibertyReserve
 		{
 			if (String.IsNullOrEmpty(AccountId))
 				throw new LibertyReserveException("Account ID is missing.");
+			if (String.IsNullOrEmpty(ReceiptId))
+			{
+				if (StartDate == null)
+					throw new LibertyReserveException("Start date is missing.");
+				if (EndDate == null)
+					throw new LibertyReserveException("End date is missing.");
+			}
 			if (StartDate != null && EndDate != null && StartDate < EndDate)
 				throw new LibertyReserveException("End date must be greater than start date.");
 			if (StartAmount != null && EndAmount != null && StartAmount < EndAmount)
