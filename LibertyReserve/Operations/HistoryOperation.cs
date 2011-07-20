@@ -113,9 +113,9 @@ namespace Magnis.Web.Services.LibertyReserve
 				if (EndDate == null)
 					throw new LibertyReserveException("End date is missing.");
 			}
-			if (StartDate != null && EndDate != null && StartDate < EndDate)
+			if (StartDate != null && EndDate != null && StartDate > EndDate)
 				throw new LibertyReserveException("End date must be greater than start date.");
-			if (StartAmount != null && EndAmount != null && StartAmount < EndAmount)
+			if (StartAmount != null && EndAmount != null && StartAmount > EndAmount)
 				throw new LibertyReserveException("End amount must be greater than start amount.");
 			if (Pager != null)
 				Pager.Check();
