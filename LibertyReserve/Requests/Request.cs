@@ -11,6 +11,7 @@ namespace Magnis.Web.Services.LibertyReserve
 {
 	public abstract class Request
 	{
+		protected const string BaseApiUrl = "https://api.libertyreserve.com/xml/";
 		protected const int DefaultTimeout = 60 * 1000;
 		protected const string RequestIdAttributeName = "id";
 		

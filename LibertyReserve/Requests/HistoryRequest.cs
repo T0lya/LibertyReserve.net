@@ -7,7 +7,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	public class HistoryRequest : Request
 	{
 		protected const string RequestNodeName = "HistoryRequest";
-		protected const string RequestUrl = "https://api.libertyreserve.com/xml/history.aspx";
+		protected const string RequestUrl = BaseApiUrl + "history.aspx";
 		
 		public HistoryOperation Operation { get; set; }
 				

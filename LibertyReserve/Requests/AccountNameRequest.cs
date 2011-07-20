@@ -8,7 +8,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	public class AccountNameRequest : Request
 	{
 		protected const string RequestNodeName = "AccountNameRequest";
-		protected const string RequestUrl = "https://api.libertyreserve.com/xml/accountname.aspx";
+		protected const string RequestUrl = BaseApiUrl + "accountname.aspx";
 		
 		public List<AccountNameOperation> Operations { get; set; }
 		
