@@ -128,7 +128,7 @@ namespace Magnis.Web.Services.LibertyReserve
 					Currency == null ? null : new XElement(CurrencyIdNodeName, LRConverter.ToString(Currency)),
 					new XElement(AccountIdNodeName, AccountId),
 					StartDate == null ? null : new XElement(StartDateNodeName, LRConverter.ToString(StartDate)),
-					EndDate != null ? null : new XElement(EndDateNodeName, LRConverter.ToString(EndDate)),
+					EndDate == null ? null : new XElement(EndDateNodeName, LRConverter.ToString(EndDate)),
 					String.IsNullOrEmpty(CorrespondingAccountId) ? null : new XElement(CorrespondingAccountIdNodeName, CorrespondingAccountId),
 					new XElement(DirectionNodeName, LRConverter.ToString(Direction)),
 					String.IsNullOrEmpty(TransferId) ? null : new XElement(TransferIdNodeName, TransferId),

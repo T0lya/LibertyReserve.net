@@ -44,12 +44,12 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public static string ToString(TransactionDirection direction)
 		{
-			return direction.ToString();
+			return direction.ToString().ToLower();
 		}
 		
 		public static string ToString(Anonymity anonymity)
 		{
-			return anonymity.ToString();
+			return anonymity.ToString().ToLower();
 		}
 		
 		public static Currency ToCurrency(string currency)
