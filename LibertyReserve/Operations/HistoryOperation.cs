@@ -112,7 +112,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			{
 				if (StartDate == null)
 					throw new LibertyReserveException("Start date is missing.");
-				else if (StartDate <= MinDate)
+				else if (StartDate < MinDate)
 					throw new LibertyReserveException(String.Format("History is not available before '{0}'.", MinDate));
 				if (EndDate == null)
 					throw new LibertyReserveException("End date is missing.");
