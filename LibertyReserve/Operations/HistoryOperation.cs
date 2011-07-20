@@ -81,6 +81,8 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected const string AmountFromNodeName = "AmountFrom";
 		protected const string AmountToNodeName = "AmountTo";
 		
+		protected static DateTime MinDate = new DateTime(2011, 1, 1);
+		
 		public Currency? Currency { get; set; }
 		public string AccountId { get; set; }
 		public DateTime? StartDate { get; set; }
@@ -110,6 +112,8 @@ namespace Magnis.Web.Services.LibertyReserve
 			{
 				if (StartDate == null)
 					throw new LibertyReserveException("Start date is missing.");
+				else if (StartDate <= MinDate)
+					throw new LibertyReserveException(String.Format("History is not available before '{0}'.", MinDate));
 				if (EndDate == null)
 					throw new LibertyReserveException("End date is missing.");
 			}
