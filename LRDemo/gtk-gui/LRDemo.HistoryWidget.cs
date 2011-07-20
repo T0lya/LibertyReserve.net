@@ -372,7 +372,7 @@ namespace LRDemo
 			w24.XOptions = ((global::Gtk.AttachOptions)(4));
 			w24.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child tblBalanceOperation.Gtk.Table+TableChild
-			this.txtPageSize = new global::Gtk.SpinButton (0, 100, 1);
+			this.txtPageSize = new global::Gtk.SpinButton (0, 20, 1);
 			this.txtPageSize.CanFocus = true;
 			this.txtPageSize.Name = "txtPageSize";
 			this.txtPageSize.Adjustment.PageIncrement = 10;
