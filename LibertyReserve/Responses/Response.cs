@@ -42,7 +42,9 @@ namespace Magnis.Web.Services.LibertyReserve
 		protected void ParseHeader(XElement xml)
 		{
 			ResponseText = xml.ToString();
-			RequestId = xml.Attribute(RequestIdAttributeName).Value;
+			XAttribute idAttr = xml.Attribute(RequestIdAttributeName);
+			if (idAttr != null)
+				RequestId = idAttr.Value;
 			Timestamp = LRConverter.ToDateTime(xml.Attribute(ResponseDateAttributeName).Value);
 		}
 		

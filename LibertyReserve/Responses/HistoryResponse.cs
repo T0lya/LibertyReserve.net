@@ -21,7 +21,9 @@ namespace Magnis.Web.Services.LibertyReserve
 				XElement xml = XElement.Parse(responseText);
 				var response = new HistoryResponse();
 				response.ParseHeader(xml);
-				response.Pager = Pager.Parse(xml.Element(Pager.PagerNodeName));
+				XElement pagerXml = xml.Element(Pager.PagerNodeName);
+				if (pagerXml != null)
+					response.Pager = Pager.Parse(pagerXml);
 				foreach (XElement node in xml.Elements(Receipt.ReceiptNodeName))
 				{
 					Receipt r = Receipt.Parse(node);
