@@ -21,6 +21,7 @@ namespace Magnis.Web.Services.LibertyReserve
 	
 	public class Pager
 	{
+		protected const int MaxPageSize = 20;
 		internal const string PagerNodeName = "Pager";
 		protected const string PageSizeNodeName = "PageSize";
 		protected const string PageNumberNodeName = "PageNumber";
@@ -34,8 +35,13 @@ namespace Magnis.Web.Services.LibertyReserve
 		
 		public void Check()
 		{
-			if (PageSize != null && PageSize <= 0)
-				throw new LibertyReserveException("Page size must be greater than zero.");
+			if (PageSize != null && (PageSize <= 0 || PageSize > MaxPageSize))
+			{
+				string msg = String.Format(
+					"'{0}' is not a valid page size value. It must be integer value from range (0..{1}].",
+					PageSize, MaxPageSize);
+				throw new LibertyReserveException(msg);
+			}
 			if (PageNumber != null && PageNumber <= 0)
 				throw new LibertyReserveException("Page number must be greater than zero.");
 		}
