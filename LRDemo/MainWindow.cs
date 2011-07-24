@@ -13,13 +13,14 @@ public partial class MainWindow: Gtk.Window, IApiCredentialsProvider
 		accountWidget.ApiCredentialsProvider = this;
 		transferWidget.ApiCredentialsProvider = this;
 		historyWidget.ApiCredentialsProvider = this;
+		sciPaymentRequestWidget.ApiCredentialsProvider = this;
 	}
 	
 	#region IApiCredentialsProvider Members
 	
 	public bool Validate()
 	{
-		if (!UIHelper.ValidateEmptyEntry(txtAccountNumber, "Account number is not specified."))
+		if (!UIHelper.ValidateEmptyEntry(txtAccount, "Account number is not specified."))
 			return false;
 		if (!UIHelper.ValidateEmptyEntry(txtApiName, "API name is not specified."))
 			return false;
@@ -35,7 +36,7 @@ public partial class MainWindow: Gtk.Window, IApiCredentialsProvider
 		{
 			return new ApiCredentials
 				{
-					AccountNumber = txtAccountNumber.Text.Trim(),
+					AccountNumber = txtAccount.Text.Trim(),
 					ApiName = txtApiName.Text.Trim(),
 					SecurityWord = txtSecurityWord.Text,
 				};

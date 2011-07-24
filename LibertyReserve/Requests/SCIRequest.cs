@@ -13,13 +13,13 @@ namespace Magnis.Web.Services.LibertyReserve
 		LINK
 	}
 		
-	public class SCI
+	public class SCIRequest
 	{
 		protected const string SciUrl = "https://sci.libertyreserve.com/";
 		protected const string MerchantAccountFieldName = "lr_acc";
 		protected const string BuyerAccountFieldName = "lr_acc_from";
 		protected const string StoreFieldName = "lr_store";
-		protected const string AmountFieldName = "lr_amount";
+		protected const string AmountFieldName = "lr_amnt";
 		protected const string CurrencyFieldName = "lr_currency";
 		protected const string CommentsFieldName = "lr_comments";
 		protected const string MerchantRefFieldName = "lr_merchant_ref";
@@ -106,7 +106,7 @@ namespace Magnis.Web.Services.LibertyReserve
 			}
 		}
 		
-		public string GeneratePaymentForm()
+		public string GeneratePaymentForm(string formContentHtml)
 		{
 			XElement html = 
 				new XElement("form",
@@ -120,12 +120,13 @@ namespace Magnis.Web.Services.LibertyReserve
 					String.IsNullOrEmpty(Comments) ? null : GenerateHiddenField(CommentsFieldName, Comments),
 					String.IsNullOrEmpty(MerchantRef) ? null : GenerateHiddenField(MerchantRefFieldName, MerchantRef),
 					SuccessUrl == null ? null : GenerateHiddenField(SuccessUrlFieldName, SuccessUrl.AbsoluteUri),
-					SuccessUrlMethod == null ? null : GenerateHiddenField(SuccessUrlMethodFieldName, LRConverter.ToString(SuccessUrlMethod)),
+					SuccessUrl == null || SuccessUrlMethod == null ? null : GenerateHiddenField(SuccessUrlMethodFieldName, LRConverter.ToString(SuccessUrlMethod)),
 					FailUrl == null ? null : GenerateHiddenField(FailUrlFieldName, FailUrl.AbsoluteUri),
-					FailUrlMethod == null ? null : GenerateHiddenField(FailUrlMethodFieldName, LRConverter.ToString(FailUrlMethod)),
+					FailUrl == null || FailUrlMethod == null ? null : GenerateHiddenField(FailUrlMethodFieldName, LRConverter.ToString(FailUrlMethod)),
 					StatusUrl == null ? null : GenerateHiddenField(StatusUrlFieldName, StatusUrl.AbsoluteUri),
-					StatusUrlMethod == null ? null : GenerateHiddenField(StatusUrlMethodFieldName, LRConverter.ToString(StatusUrlMethod)),
-					BaggageFields == null ? null : BaggageFields.Select(pair => GenerateHiddenField(pair.Key, pair.Value))
+					StatusUrl == null || StatusUrlMethod == null ? null : GenerateHiddenField(StatusUrlMethodFieldName, LRConverter.ToString(StatusUrlMethod)),
+					BaggageFields == null ? null : BaggageFields.Select(pair => GenerateHiddenField(pair.Key, pair.Value)),
+					String.IsNullOrEmpty(formContentHtml) ? null : XElement.Parse(formContentHtml)
 					);
 			
 			return html.ToString();

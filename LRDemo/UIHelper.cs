@@ -63,7 +63,13 @@ namespace LRDemo
 		{
 			return spinButton.Value != 0.0 ? (int?)spinButton.Value : null;
 		}
-				
+		
+		public static Uri GetUri(Gtk.Entry entry)
+		{
+			string value = entry.Text;
+
+			return String.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute);
+		}
 		#endregion
 		
 		#region Message boxes
@@ -134,6 +140,20 @@ namespace LRDemo
 				LRConverter.ToDateTime(entry.Text.Trim());
 			}
 			catch
+			{
+				entry.GrabFocus();
+				UIHelper.DisplayError((Gtk.Window)entry.Toplevel, errorMessage);
+				
+				return false;
+			}
+			
+			return true;
+		}
+		
+		public static bool ValidateUrl(Entry entry, string errorMessage)
+		{
+			Uri uri;
+			if (!Uri.TryCreate(entry.Text, UriKind.Absolute, out uri))
 			{
 				entry.GrabFocus();
 				UIHelper.DisplayError((Gtk.Window)entry.Toplevel, errorMessage);

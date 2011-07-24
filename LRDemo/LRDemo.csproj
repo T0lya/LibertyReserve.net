@@ -63,6 +63,8 @@
     <Compile Include="gtk-gui\LRDemo.HistoryWidget.cs" />
     <Compile Include="TreeNodeColumnAttribute.cs" />
     <Compile Include="NodeViewExtensions.cs" />
+    <Compile Include="SCIPaymentRequestWidget.cs" />
+    <Compile Include="gtk-gui\LRDemo.SCIPaymentRequestWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

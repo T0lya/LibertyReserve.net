@@ -10,7 +10,7 @@ public partial class MainWindow
 	private global::Gtk.Label lblAccountNumber;
 	private global::Gtk.Label lblApiName;
 	private global::Gtk.Label lblSecurityWord;
-	private global::Gtk.Entry txtAccountNumber;
+	private global::Gtk.Entry txtAccount;
 	private global::Gtk.Entry txtApiName;
 	private global::Gtk.Entry txtSecurityWord;
 	private global::Gtk.Label lblApiCredentials;
@@ -22,7 +22,9 @@ public partial class MainWindow
 	private global::LRDemo.TransferWidget transferWidget;
 	private global::Gtk.Label lblTransfer;
 	private global::LRDemo.HistoryWidget historyWidget;
-	private global::Gtk.Label lblHistory;
+	private global::Gtk.Label lblHistory1;
+	private global::LRDemo.SCIPaymentRequestWidget sciPaymentRequestWidget;
+	private global::Gtk.Label lblPaymentRequest;
     
 	protected virtual void Build ()
 	{
@@ -81,13 +83,13 @@ public partial class MainWindow
 		w3.XOptions = ((global::Gtk.AttachOptions)(4));
 		w3.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tblApiCredentials.Gtk.Table+TableChild
-		this.txtAccountNumber = new global::Gtk.Entry ();
-		this.txtAccountNumber.CanFocus = true;
-		this.txtAccountNumber.Name = "txtAccountNumber";
-		this.txtAccountNumber.IsEditable = true;
-		this.txtAccountNumber.InvisibleChar = '●';
-		this.tblApiCredentials.Add (this.txtAccountNumber);
-		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.tblApiCredentials [this.txtAccountNumber]));
+		this.txtAccount = new global::Gtk.Entry ();
+		this.txtAccount.CanFocus = true;
+		this.txtAccount.Name = "txtAccount";
+		this.txtAccount.IsEditable = true;
+		this.txtAccount.InvisibleChar = '●';
+		this.tblApiCredentials.Add (this.txtAccount);
+		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.tblApiCredentials [this.txtAccount]));
 		w4.LeftAttach = ((uint)(1));
 		w4.RightAttach = ((uint)(2));
 		w4.YPadding = ((uint)(3));
@@ -136,7 +138,7 @@ public partial class MainWindow
 		this.operationsNotebook = new global::Gtk.Notebook ();
 		this.operationsNotebook.CanFocus = true;
 		this.operationsNotebook.Name = "operationsNotebook";
-		this.operationsNotebook.CurrentPage = 3;
+		this.operationsNotebook.CurrentPage = 4;
 		// Container child operationsNotebook.Gtk.Notebook+NotebookChild
 		this.balanceWidget = new global::LRDemo.BalanceWidget ();
 		this.balanceWidget.Events = ((global::Gdk.EventMask)(256));
@@ -182,14 +184,27 @@ public partial class MainWindow
 		global::Gtk.Notebook.NotebookChild w13 = ((global::Gtk.Notebook.NotebookChild)(this.operationsNotebook [this.historyWidget]));
 		w13.Position = 3;
 		// Notebook tab
-		this.lblHistory = new global::Gtk.Label ();
-		this.lblHistory.Name = "lblHistory";
-		this.lblHistory.LabelProp = global::Mono.Unix.Catalog.GetString ("History");
-		this.operationsNotebook.SetTabLabel (this.historyWidget, this.lblHistory);
-		this.lblHistory.ShowAll ();
+		this.lblHistory1 = new global::Gtk.Label ();
+		this.lblHistory1.Name = "lblHistory1";
+		this.lblHistory1.LabelProp = global::Mono.Unix.Catalog.GetString ("History");
+		this.operationsNotebook.SetTabLabel (this.historyWidget, this.lblHistory1);
+		this.lblHistory1.ShowAll ();
+		// Container child operationsNotebook.Gtk.Notebook+NotebookChild
+		this.sciPaymentRequestWidget = new global::LRDemo.SCIPaymentRequestWidget ();
+		this.sciPaymentRequestWidget.Events = ((global::Gdk.EventMask)(256));
+		this.sciPaymentRequestWidget.Name = "sciPaymentRequestWidget";
+		this.operationsNotebook.Add (this.sciPaymentRequestWidget);
+		global::Gtk.Notebook.NotebookChild w14 = ((global::Gtk.Notebook.NotebookChild)(this.operationsNotebook [this.sciPaymentRequestWidget]));
+		w14.Position = 4;
+		// Notebook tab
+		this.lblPaymentRequest = new global::Gtk.Label ();
+		this.lblPaymentRequest.Name = "lblPaymentRequest";
+		this.lblPaymentRequest.LabelProp = global::Mono.Unix.Catalog.GetString ("Payment Request");
+		this.operationsNotebook.SetTabLabel (this.sciPaymentRequestWidget, this.lblPaymentRequest);
+		this.lblPaymentRequest.ShowAll ();
 		this.layoutVBox.Add (this.operationsNotebook);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
-		w14.Position = 1;
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.layoutVBox [this.operationsNotebook]));
+		w15.Position = 1;
 		this.Add (this.layoutVBox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
