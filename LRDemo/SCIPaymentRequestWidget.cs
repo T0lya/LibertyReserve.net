@@ -1,5 +1,6 @@
 using System;
 using Magnis.Web.Services.LibertyReserve;
+using System.Collections.Generic;
 
 namespace LRDemo
 {
@@ -91,7 +92,16 @@ namespace LRDemo
 				FailUrlMethod = GetFailUrlMethod(),
 				StatusUrl = UIHelper.GetUri(txtStatusUrl),
 				StatusUrlMethod = GetStatusUrlMethod(),
+				BaggageFields = new Dictionary<string, string>(),
 			};
+			var lineSeparator = new string[] { Environment.NewLine };
+			string[] lines = txtBaggageFields.Buffer.Text.Split(lineSeparator, StringSplitOptions.RemoveEmptyEntries);
+			foreach (string line in lines)
+			{
+				string[] values = line.Split('=');
+				if (values.Length > 1)
+					sci.BaggageFields.Add(values[0], values[1]);
+			}
 			
 			return sci;
 		}
