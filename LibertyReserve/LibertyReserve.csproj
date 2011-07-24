@@ -57,6 +57,7 @@
     <Compile Include="Operations\TransferOperation.cs" />
     <Compile Include="Requests\TransferRequest.cs" />
     <Compile Include="Responses\TransferResponse.cs" />
+    <Compile Include="SCI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

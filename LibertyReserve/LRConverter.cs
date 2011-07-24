@@ -52,6 +52,11 @@ namespace Magnis.Web.Services.LibertyReserve
 			return anonymity.ToString().ToLower();
 		}
 		
+		public static string ToString(HttpMethod? httpMethod)
+		{
+			return httpMethod != null ? httpMethod.ToString() : null;
+		}
+		
 		public static Currency ToCurrency(string currency)
 		{
 			switch (currency.ToUpper())
